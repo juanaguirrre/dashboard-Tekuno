@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tekuno - Soluciones Tecnológicas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tek-navy': '#1A2733',
+                        'tek-coral': '#FF4A33',
+                        'tek-blue': '#537892',
+                        'tek-taupe': '#B79A97',
+                        'tek-white': '#FFFFFF',
+                        'tek-bg-light': '#F3F4F6'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F3F4F6;
+            color: #1A2733;
+        }
+        
+        .service-card {
+            background-color: #FFFFFF;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(26, 39, 51, 0.1), 0 2px 4px -1px rgba(26, 39, 51, 0.06);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .service-card:hover, .service-card.active {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(26, 39, 51, 0.15), 0 4px 6px -2px rgba(26, 39, 51, 0.1);
+            border-color: #FF4A33;
+        }
+
+        .service-card.active {
+            background-color: #1A2733;
+            color: #FFFFFF;
+        }
+
+        .service-card.active .icon-container {
+            background-color: #FF4A33;
+            color: #FFFFFF;
+        }
+
+        .service-card.active h3 {
+            color: #FFFFFF;
+        }
+
+        .service-card.active p {
+            color: #B79A97;
+        }
+
+        .icon-container {
+            transition: all 0.3s ease;
+        }
+
+        .header-bg {
+            background: linear-gradient(135deg, #1A2733 0%, #537892 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3F4F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #537892;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1A2733;
+        }
+
+        /* View Transitions */
+        .view-section {
+            transition: opacity 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased h-screen flex flex-col overflow-hidden">
+
+    <header class="header-bg text-white shadow-md z-20 relative shrink-0">
+        <div class="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <!-- Logo as Home Button -->
+            <button onclick="switchView('view-soluciones')" class="flex items-center gap-3 text-left group">
+                <div class="w-10 h-10 rounded-lg bg-tek-coral flex items-center justify-center font-bold text-xl shadow-lg group-hover:scale-105 transition-transform">
+                    T
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight group-hover:text-tek-coral transition-colors">Tekuno</h1>
+                    <p class="text-xs text-tek-taupe font-medium hidden sm:block">Transformación e Innovación Digital</p>
+                </div>
+            </button>
+            
+            <div class="hidden md:flex items-center gap-6">
+                <!-- Main Navigation -->
+                <button onclick="switchView('view-soluciones')" class="nav-link text-sm font-medium text-tek-coral transition-colors" id="nav-soluciones">Soluciones</button>
+                <button onclick="switchView('view-nosotros')" class="nav-link text-sm font-medium hover:text-tek-coral transition-colors" id="nav-nosotros">Nosotros</button>
+                
+                <button id="open-quote-btn-header" class="bg-tek-coral hover:bg-opacity-90 text-white px-5 py-2 rounded-full text-sm font-bold shadow-md transition-transform hover:scale-105 flex items-center gap-2">
+                    <i class="fa-regular fa-comment-dots"></i> Contáctanos
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="md:hidden flex items-center gap-4">
+                <button onclick="switchView('view-nosotros')" class="text-sm font-medium hover:text-tek-coral text-white underline">Nosotros</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN VIEW: SOLUCIONES (Dashboard) -->
+    <main id="view-soluciones" class="view-section flex-1 flex flex-col lg:flex-row overflow-hidden relative opacity-100">
+        
+        <!-- Left Sidebar: Categories Navigation -->
+        <div class="w-full lg:w-1/3 p-4 md:p-6 lg:p-8 overflow-y-auto bg-tek-bg-light border-r border-gray-200 z-10 flex flex-col h-full">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-tek-navy mb-2">Nuestras Soluciones</h2>
+                <p class="text-sm text-tek-blue">Seleccione un área para descubrir cómo podemos optimizar los procesos de su organización.</p>
+            </div>
+
+            <div class="flex flex-col gap-4 flex-1">
+                <button class="service-card active p-4 flex items-center gap-4 text-left w-full group" onclick="showModule('mod-auto', this)">
+                    <div class="icon-container w-12 h-12 rounded-full bg-tek-coral text-white flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-tek-navy mb-1 group-hover:text-tek-coral transition-colors">Automatización & IA</h3>
+                        <p class="text-xs text-tek-blue">Bot RPA, Chatbots, Optimización Administrativa</p>
+                    </div>
+                </button>
+
+                <button class="service-card p-4 flex items-center gap-4 text-left w-full group" onclick="showModule('mod-doc', this)">
+                    <div class="icon-container w-12 h-12 rounded-full bg-gray-100 text-tek-navy flex items-center justify-center text-xl shrink-0 group-hover:bg-tek-blue group-hover:text-white">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-tek-navy mb-1 group-hover:text-tek-coral transition-colors">Gestión Documental</h3>
+                        <p class="text-xs text-tek-blue">Digitalización, Laserfiche, Formularios</p>
+                    </div>
+                </button>
+
+                <button class="service-card p-4 flex items-center gap-4 text-left w-full group" onclick="showModule('mod-emp', this)">
+                    <div class="icon-container w-12 h-12 rounded-full bg-gray-100 text-tek-navy flex items-center justify-center text-xl shrink-0 group-hover:bg-tek-blue group-hover:text-white">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-tek-navy mb-1 group-hover:text-tek-coral transition-colors">Sistemas Empresariales</h3>
+                        <p class="text-xs text-tek-blue">Odoo ERP, Recursos Humanos, Control</p>
+                    </div>
+                </button>
+
+                <button class="service-card p-4 flex items-center gap-4 text-left w-full group" onclick="showModule('mod-esp', this)">
+                    <div class="icon-container w-12 h-12 rounded-full bg-gray-100 text-tek-navy flex items-center justify-center text-xl shrink-0 group-hover:bg-tek-blue group-hover:text-white">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-tek-navy mb-1 group-hover:text-tek-coral transition-colors">Sectores Especializados</h3>
+                        <p class="text-xs text-tek-blue">Fraccionamientos, Clubes y Centros Deportivos</p>
+                    </div>
+                </button>
+
+                <button class="service-card p-4 flex items-center gap-4 text-left w-full group" onclick="showModule('mod-gob', this)">
+                    <div class="icon-container w-12 h-12 rounded-full bg-gray-100 text-tek-navy flex items-center justify-center text-xl shrink-0 group-hover:bg-tek-blue group-hover:text-white">
+                        <i class="fa-solid fa-landmark"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-tek-navy mb-1 group-hover:text-tek-coral transition-colors">Gobierno & Activos</h3>
+                        <p class="text-xs text-tek-blue">Sector Público, Gestión de Activos</p>
+                    </div>
+                </button>
+            </div>
+            
+            <div class="mt-6 md:hidden">
+                <button id="open-quote-btn-mobile" class="w-full bg-tek-coral hover:bg-opacity-90 text-white p-4 rounded-xl font-bold shadow-md transition-transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-comment-dots text-xl"></i>
+                    <span>Solicitar Información</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Content Area -->
+        <div class="w-full lg:w-2/3 p-4 md:p-6 lg:p-10 bg-white overflow-y-auto relative z-10">
+            <!-- Module 1: Automatizacion (Default Active) -->
+            <div id="mod-auto" class="module-content opacity-100 transition-opacity duration-500">
+                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-tek-navy text-tek-coral flex items-center justify-center text-3xl shadow-lg">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-tek-navy">Automatización & IA</h2>
+                        <span class="inline-block px-3 py-1 bg-gray-100 text-tek-blue rounded-full text-xs font-semibold mt-1">Eficiencia Operativa</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                    Transformamos tareas repetitivas en flujos de trabajo inteligentes. Nuestras soluciones de Bot RPA (Automatización Robótica de Procesos) y Chatbots liberan a su equipo administrativo para enfocarse en tareas de alto valor, mejorando tiempos de respuesta y reduciendo errores.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-gears text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Bot RPA</h4>
+                        <p class="text-sm text-gray-600">Automatice procesos administrativos repetitivos, integrando sistemas sin necesidad de complejas programaciones.</p>
+                    </div>
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-regular fa-comments text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Asistentes Virtuales (Chatbot)</h4>
+                        <p class="text-sm text-gray-600">Mejore el servicio al cliente y soporte interno con respuestas automatizadas 24/7 en múltiples plataformas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2: Documental -->
+            <div id="mod-doc" class="module-content hidden opacity-0 transition-opacity duration-500">
+                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-tek-navy text-tek-coral flex items-center justify-center text-3xl shadow-lg">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-tek-navy">Gestión Documental</h2>
+                        <span class="inline-block px-3 py-1 bg-gray-100 text-tek-blue rounded-full text-xs font-semibold mt-1">Cero Papel</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                    Deje atrás los archivos físicos. Digitalizamos y organizamos la información de su organización utilizando herramientas líderes como Laserfiche. Cree expedientes digitales seguros, accesibles y fáciles de auditar.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-scanner-touchscreen text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Digitalización Profesional</h4>
+                        <p class="text-sm text-gray-600">Conversión de acervos físicos a formatos digitales con reconocimiento óptico de caracteres (OCR) para búsquedas rápidas.</p>
+                    </div>
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-folder-tree text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Implementación Laserfiche</h4>
+                        <p class="text-sm text-gray-600">Software empresarial para la gestión integral de contenido (ECM), flujos de trabajo de aprobación y formularios electrónicos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3: Empresarial -->
+            <div id="mod-emp" class="module-content hidden opacity-0 transition-opacity duration-500">
+                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-tek-navy text-tek-coral flex items-center justify-center text-3xl shadow-lg">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-tek-navy">Sistemas Empresariales</h2>
+                        <span class="inline-block px-3 py-1 bg-gray-100 text-tek-blue rounded-full text-xs font-semibold mt-1">Gestión ERP</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                    Unifique las operaciones de su empresa. Implementamos soluciones robustas como Odoo ERP para centralizar la gestión de ventas, finanzas, inventario y, de manera crucial, la gestión integral de sus Recursos Humanos.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-sitemap text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Integración Odoo</h4>
+                        <p class="text-sm text-gray-600">Aplicaciones empresariales de código abierto para gestionar desde la contabilidad hasta el comercio electrónico en un solo lugar.</p>
+                    </div>
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-users text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Recursos Humanos</h4>
+                        <p class="text-sm text-gray-600">Gestión de nómina, asistencias, expedientes de empleados, reclutamiento y evaluaciones de desempeño automatizadas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4: Especializados -->
+            <div id="mod-esp" class="module-content hidden opacity-0 transition-opacity duration-500">
+                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-tek-navy text-tek-coral flex items-center justify-center text-3xl shadow-lg">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-tek-navy">Sectores Especializados</h2>
+                        <span class="inline-block px-3 py-1 bg-gray-100 text-tek-blue rounded-full text-xs font-semibold mt-1">Soluciones de Nicho</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                    Entendemos que algunos sectores requieren herramientas a la medida. Desarrollamos y adaptamos software específico para la administración eficiente de comunidades residenciales e instalaciones recreativas.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-house-flag text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Fraccionamientos</h4>
+                        <p class="text-sm text-gray-600">Control de accesos, gestión de cuotas de mantenimiento, reservas de áreas comunes y comunicación con residentes.</p>
+                    </div>
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-volleyball text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Clubes y Centros Deportivos</h4>
+                        <p class="text-sm text-gray-600">Administración de membresías, agendamiento de clases, control de aforo y pagos recurrentes de manera simplificada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 5: Gobierno -->
+            <div id="mod-gob" class="module-content hidden opacity-0 transition-opacity duration-500">
+                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+                    <div class="w-16 h-16 rounded-2xl bg-tek-navy text-tek-coral flex items-center justify-center text-3xl shadow-lg">
+                        <i class="fa-solid fa-landmark"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-tek-navy">Gobierno & Activos</h2>
+                        <span class="inline-block px-3 py-1 bg-gray-100 text-tek-blue rounded-full text-xs font-semibold mt-1">Gestión Pública</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                    Modernizamos la administración pública e institucional. Nuestras soluciones garantizan transparencia, agilidad en trámites ciudadanos y un control riguroso sobre los bienes y activos de las entidades gubernamentales.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-building-columns text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Trámites de Gobierno</h4>
+                        <p class="text-sm text-gray-600">Plataformas para ventanillas digitales, seguimiento de solicitudes ciudadanas y cumplimiento normativo.</p>
+                    </div>
+                    <div class="bg-tek-bg-light p-6 rounded-xl border border-gray-100 hover:border-tek-blue transition-colors">
+                        <i class="fa-solid fa-boxes-stacked text-tek-coral text-2xl mb-3"></i>
+                        <h4 class="font-bold text-tek-navy mb-2">Gestión de Activos</h4>
+                        <p class="text-sm text-gray-600">Sistemas para inventario, rastreo de depreciación, asignación de equipo y mantenimiento de bienes muebles e inmuebles.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Banner at bottom of content -->
+            <div class="mt-8 bg-tek-navy rounded-2xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-tek-blue rounded-full opacity-20 blur-2xl"></div>
+                <div class="relative z-10 text-center sm:text-left">
+                    <h3 class="text-xl font-bold mb-1">¿No está seguro por dónde empezar?</h3>
+                    <p class="text-tek-taupe text-sm">Nuestro equipo de consultores está listo para analizar sus necesidades.</p>
+                </div>
+                <button id="open-quote-btn-banner" class="relative z-10 shrink-0 bg-tek-coral hover:bg-white hover:text-tek-coral text-white px-6 py-3 rounded-xl font-bold transition-colors shadow-md">
+                    Agendar Asesoría
+                </button>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- NEW VIEW: NOSOTROS (About Us) -->
+    <div id="view-nosotros" class="view-section hidden flex-1 overflow-y-auto bg-white opacity-0 absolute inset-0 z-10 mt-[72px] md:mt-[76px]">
+        <div class="container mx-auto px-4 md:px-8 py-10 max-w-5xl">
+            
+            <!-- Hero / Intro -->
+            <div class="text-center mb-16">
+                <div class="w-20 h-20 bg-tek-bg-light rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner text-tek-coral text-4xl">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold text-tek-navy mb-6 leading-tight">Mejorando la vida de todos a través de <span class="text-tek-coral">productos revolucionarios</span></h2>
+                <p class="text-lg md:text-xl text-tek-blue max-w-3xl mx-auto leading-relaxed">
+                    Somos un equipo de personas apasionadas cuyo objetivo es resolver sus problemas empresariales. Estos productos están diseñados para pequeñas y medianas empresas dispuestas a optimizar su rendimiento.
+                </p>
+            </div>
+
+            <!-- Filosofía Section -->
+            <div class="bg-tek-bg-light rounded-3xl p-8 md:p-12 mb-16 shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row gap-10 items-center">
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-tek-coral font-bold text-lg uppercase tracking-wider mb-2">Nuestra Filosofía</h3>
+                        <h4 class="text-3xl font-bold text-tek-navy mb-4">No somos solo proveedores, somos <span class="text-tek-blue">socios estratégicos</span></h4>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            En Tekuno, creemos que la transformación digital no se trata solo de tecnología, sino de crear soluciones que realmente se adapten a cada organización. No imponemos herramientas, las integramos estratégicamente para complementar tu operación y hacerla más eficiente.
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            A diferencia de otras empresas que venden productos aislados, en Tekuno <strong>conectamos y complementamos</strong> distintos servicios para lograr una transformación digital integral. Si ya cuentas con herramientas digitales, las optimizamos e integramos; si necesitas nuevas soluciones, te ayudamos a elegir e implementar las más adecuadas.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/2 flex justify-center">
+                        <div class="relative">
+                            <div class="absolute inset-0 bg-tek-navy rounded-full opacity-5 blur-3xl transform scale-150"></div>
+                            <img src="https://illustrations.popsy.co/amber/business-deal.svg" alt="Socios Estratégicos" class="w-64 h-64 md:w-80 md:h-80 relative z-10" onerror="this.outerHTML='<i class=\'fa-solid fa-handshake-angle text-[150px] text-tek-blue opacity-80\'></i>'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proceso (5 Steps Timeline) -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-bold text-center text-tek-navy mb-12">Nuestro Proceso</h3>
+                
+                <div class="max-w-3xl mx-auto relative">
+                    <!-- Vertical Line connecting steps -->
+                    <div class="absolute left-6 top-10 bottom-10 w-1 bg-tek-bg-light rounded"></div>
+
+                    <!-- Step 1 -->
+                    <div class="relative pl-20 mb-10 group">
+                        <div class="absolute left-0 top-0 w-12 h-12 bg-tek-navy text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg group-hover:bg-tek-coral transition-colors z-10">1</div>
+                        <h4 class="text-xl font-bold text-tek-navy mb-2 group-hover:text-tek-coral transition-colors">Te conocemos a fondo</h4>
+                        <p class="text-gray-600 leading-relaxed">No llegamos con una solución predefinida. Primero, entendemos tu empresa, tus procesos y tus necesidades para identificar cómo la tecnología puede ayudarte de verdad.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative pl-20 mb-10 group">
+                        <div class="absolute left-0 top-0 w-12 h-12 bg-tek-navy text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg group-hover:bg-tek-coral transition-colors z-10">2</div>
+                        <h4 class="text-xl font-bold text-tek-navy mb-2 group-hover:text-tek-coral transition-colors">Creamos soluciones que encajan contigo</h4>
+                        <p class="text-gray-600 leading-relaxed">Integramos nuestras soluciones con las herramientas que ya utilizas o las diseñamos a la medida de tus necesidades. Ya sea digitalización, automatización, desarrollo de software o servicios en la nube, creamos sistemas que optimizan y potencian tu operación sin generar complejidad innecesaria.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative pl-20 mb-10 group">
+                        <div class="absolute left-0 top-0 w-12 h-12 bg-tek-navy text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg group-hover:bg-tek-coral transition-colors z-10">3</div>
+                        <h4 class="text-xl font-bold text-tek-navy mb-2 group-hover:text-tek-coral transition-colors">Conectamos lo que tienes con lo que necesitas</h4>
+                        <p class="text-gray-600 leading-relaxed">Si ya usas tecnología, la optimizamos y hacemos que todo funcione de manera fluida. Si necesitas algo nuevo, lo integramos sin interrumpir tu operación.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative pl-20 mb-10 group">
+                        <div class="absolute left-0 top-0 w-12 h-12 bg-tek-navy text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg group-hover:bg-tek-coral transition-colors z-10">4</div>
+                        <h4 class="text-xl font-bold text-tek-navy mb-2 group-hover:text-tek-coral transition-colors">Te acompañamos en cada paso</h4>
+                        <p class="text-gray-600 leading-relaxed">No te dejamos solo con un sistema que nadie sabe usar. Te guiamos, capacitamos y ajustamos la solución según lo que realmente necesitas, asegurando que la transición sea sencilla y efectiva.</p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="relative pl-20 group">
+                        <div class="absolute left-0 top-0 w-12 h-12 bg-tek-navy text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg group-hover:bg-tek-coral transition-colors z-10">5</div>
+                        <h4 class="text-xl font-bold text-tek-navy mb-2 group-hover:text-tek-coral transition-colors">Evolucionamos contigo</h4>
+                        <p class="text-gray-600 leading-relaxed">El mundo cambia, y tu negocio también. Por eso, nuestras soluciones son flexibles y escalables, para que siempre tengas la tecnología que te ayude a crecer.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center pb-12 border-t border-gray-100 pt-12">
+                <button id="open-quote-btn-about" class="bg-tek-coral hover:bg-tek-navy text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl transition-all hover:-translate-y-1 inline-flex items-center gap-3">
+                    Descubre cómo podemos complementar tu negocio <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Friendly Contact/Quote Modal -->
+    <div id="contact-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-tek-navy bg-opacity-70 backdrop-blur-sm transition-opacity" id="close-modal-bg"></div>
+        
+        <div class="bg-white rounded-2xl shadow-2xl relative z-10 w-full max-w-md transform scale-95 opacity-0 transition-all duration-300 overflow-hidden flex flex-col max-h-[90vh]" id="contact-modal-content">
+            <!-- Modal Header -->
+            <div class="bg-tek-navy p-6 relative">
+                <button id="close-modal-btn" class="absolute top-4 right-4 text-tek-taupe hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+                <h3 class="text-2xl font-bold text-white mb-1">Contáctanos</h3>
+                <p class="text-sm text-tek-taupe">Permítenos ayudarte a digitalizar tu organización.</p>
+            </div>
+            
+            <!-- Modal Body / Form -->
+            <div class="p-6 overflow-y-auto">
+                <form id="contact-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-tek-navy mb-1">Nombre Completo / Empresa</label>
+                        <input type="text" required placeholder="Ej. Juan Pérez - Empresa S.A." class="w-full bg-tek-bg-light border border-gray-200 rounded-lg p-3 text-tek-navy focus:border-tek-coral focus:outline-none focus:ring-2 focus:ring-tek-coral/20 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-tek-navy mb-1">Correo Electrónico</label>
+                        <input type="email" required placeholder="correo@empresa.com" class="w-full bg-tek-bg-light border border-gray-200 rounded-lg p-3 text-tek-navy focus:border-tek-coral focus:outline-none focus:ring-2 focus:ring-tek-coral/20 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-tek-navy mb-1">Área de Interés</label>
+                        <select required class="w-full bg-tek-bg-light border border-gray-200 rounded-lg p-3 text-tek-navy focus:border-tek-coral focus:outline-none focus:ring-2 focus:ring-tek-coral/20 transition-all">
+                            <option value="">Seleccione un área...</option>
+                            <option value="automatizacion">Automatización & IA (Bot/RPA)</option>
+                            <option value="documental">Gestión Documental (Laserfiche)</option>
+                            <option value="empresarial">Sistemas Empresariales (Odoo ERP)</option>
+                            <option value="especializado">Sectores Especializados (Fraccionamientos/Clubes)</option>
+                            <option value="gobierno">Gobierno & Gestión de Activos</option>
+                            <option value="otro">Consultoría General</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-tek-navy mb-1">¿Cómo podemos ayudarle?</label>
+                        <textarea rows="3" required placeholder="Describa brevemente lo que necesita..." class="w-full bg-tek-bg-light border border-gray-200 rounded-lg p-3 text-tek-navy focus:border-tek-coral focus:outline-none focus:ring-2 focus:ring-tek-coral/20 transition-all resize-none"></textarea>
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-tek-coral hover:bg-opacity-90 text-white font-bold py-3 rounded-lg shadow-md transition-all flex items-center justify-center gap-2">
+                            Enviar Mensaje <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Success Message -->
+                <div id="contact-success" class="hidden text-center py-6">
+                    <div class="w-16 h-16 rounded-full bg-green-100 text-green-500 flex items-center justify-center mx-auto mb-4 text-3xl">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h4 class="text-xl text-tek-navy font-bold mb-2">¡Mensaje Enviado!</h4>
+                    <p class="text-sm text-gray-600 mb-6">Gracias por contactar a Tekuno. Un especialista revisará tu solicitud y se comunicará contigo pronto.</p>
+                    <button id="close-success-btn" class="bg-tek-navy hover:bg-tek-blue text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // View Switching Logic (Soluciones vs Nosotros)
+        function switchView(viewId) {
+            const views = document.querySelectorAll('.view-section');
+            const navSoluciones = document.getElementById('nav-soluciones');
+            const navNosotros = document.getElementById('nav-nosotros');
+
+            // Handle Nav styling
+            if(viewId === 'view-soluciones') {
+                navSoluciones.classList.add('text-tek-coral');
+                navSoluciones.classList.remove('text-white');
+                navNosotros.classList.add('text-white');
+                navNosotros.classList.remove('text-tek-coral');
+            } else {
+                navNosotros.classList.add('text-tek-coral');
+                navNosotros.classList.remove('text-white');
+                navSoluciones.classList.add('text-white');
+                navSoluciones.classList.remove('text-tek-coral');
+            }
+
+            views.forEach(view => {
+                if (view.id === viewId) {
+                    view.classList.remove('hidden');
+                    // Small delay to allow display:block to render before opacity change
+                    setTimeout(() => {
+                        view.classList.remove('opacity-0');
+                        view.classList.add('opacity-100');
+                    }, 50);
+                } else {
+                    view.classList.remove('opacity-100');
+                    view.classList.add('opacity-0');
+                    // Hide after fade out
+                    setTimeout(() => {
+                        if (view.classList.contains('opacity-0')) {
+                            view.classList.add('hidden');
+                        }
+                    }, 400); // Matches transition duration
+                }
+            });
+        }
+
+        // Module Switching Logic (Inside Soluciones)
+        function showModule(moduleId, btnElement) {
+            const modules = document.querySelectorAll('.module-content');
+            modules.forEach(mod => {
+                mod.classList.remove('opacity-100');
+                mod.classList.add('opacity-0');
+                setTimeout(() => {
+                    if(!mod.classList.contains('opacity-100')) {
+                        mod.classList.add('hidden');
+                    }
+                }, 300); 
+            });
+
+            const buttons = document.querySelectorAll('.service-card');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const targetModule = document.getElementById(moduleId);
+            setTimeout(() => {
+                targetModule.classList.remove('hidden');
+                setTimeout(() => {
+                    targetModule.classList.remove('opacity-0');
+                    targetModule.classList.add('opacity-100');
+                }, 50);
+            }, 300);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure correct nav highlighting on load
+            document.getElementById('nav-soluciones').classList.add('text-tek-coral');
+
+            // Modal Logic
+            const modal = document.getElementById('contact-modal');
+            const modalContent = document.getElementById('contact-modal-content');
+            const closeModalBg = document.getElementById('close-modal-bg');
+            const closeBtn = document.getElementById('close-modal-btn');
+            const closeSuccessBtn = document.getElementById('close-success-btn');
+            const form = document.getElementById('contact-form');
+            const successMsg = document.getElementById('contact-success');
+
+            const openBtns = [
+                document.getElementById('open-quote-btn-header'),
+                document.getElementById('open-quote-btn-mobile'),
+                document.getElementById('open-quote-btn-banner'),
+                document.getElementById('open-quote-btn-about') // New button in About section
+            ];
+
+            function openModal() {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+
+            function closeModal() {
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    form.reset();
+                    form.classList.remove('hidden');
+                    successMsg.classList.add('hidden');
+                }, 300);
+            }
+
+            openBtns.forEach(btn => {
+                if(btn) btn.addEventListener('click', openModal);
+            });
+
+            closeModalBg.addEventListener('click', closeModal);
+            closeBtn.addEventListener('click', closeModal);
+            closeSuccessBtn.addEventListener('click', closeModal);
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalContent = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    form.classList.add('hidden');
+                    successMsg.classList.remove('hidden');
+                    submitBtn.innerHTML = originalContent;
+                    submitBtn.disabled = false;
+                }, 1200);
+            });
+        });
+    </script>
+</body>
+</html>
